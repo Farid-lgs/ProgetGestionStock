@@ -14,32 +14,10 @@
 		<ui:include src="layoutUnitMenu.xhtml" />
 		
 		<p:layoutUnit id="layoutcenter" position="center" style="width:200; border-width:0px;">
-			<h:form>
-						
-				<p:panel id="panel" header="Search Form" styleClass="p-mb-3">
-            		<p:growl id="messages"/>
-
-            <h:panelGrid columns="4" cellpadding="7">
-                <h:outputLabel for="valeurRecherche" value="Champ de recherche :"/>
-                <p:inputText id="valeurRecherche" value="#{clientMBean.valeurRecherche}" required="true" style="width: 12rem">
-                </p:inputText>
-
-                <h:outputLabel for="critereRecherche" value="Critere :"/>
-                <p:selectOneMenu id="critereRecherche" value="#{clientMBean.critereRecherche}" required="true" label="critereRecherche" style="width: 12rem">
-                    <f:selectItem itemLabel="None" itemValue="0" noSelectionOption="true"/>
-                    <f:selectItem itemLabel="Nom" itemValue="1"/>
-                    <f:selectItem itemLabel="Prenom" itemValue="2"/>
-                </p:selectOneMenu>
-                <p:message for="@previous"/>
-                <p:commandButton value="Recherche" action="#{clientMBean.renvoi}"/>
-            </h:panelGrid>
-        </p:panel>
-            
-			</h:form>
 			
 			<h:form>
 			 <p:growl showDetail="true"></p:growl>
-				<p:dataTable value="#{clientMBean.listClient}" var="client"
+				<p:dataTable value="#{clientMBean.listClientPrenom}" var="client"
 					selection="#{clientMBean.selectedClient}" selectionMode="single"
 					rowKey="#{client.idclient}">
 

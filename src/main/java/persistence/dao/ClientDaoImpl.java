@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
-import persistence.entities.Categorie;
 import persistence.entities.Client;
 
 public class ClientDaoImpl implements ClientDao {
@@ -56,6 +58,26 @@ public class ClientDaoImpl implements ClientDao {
 		Client client = s.get(Client.class,(int) idclient);
 		s.close();
 		return client;
+	}
+	
+	public List<Client> findByNom(String nomclient) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Criteria crt = s.createCriteria(Client.class);
+		Criterion crt1 = Restrictions.eq("nomclient", nomclient);
+		crt.add(crt1);
+		List<Client> listClient = crt.list();
+		s.close();
+		return listClient;
+	}
+	
+	public List<Client> findByPrenom(String prenomclient) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Criteria crt = s.createCriteria(Client.class);
+		Criterion crt1 = Restrictions.eq("prenomclient", prenomclient);
+		crt.add(crt1);
+		List<Client> listClient = crt.list();
+		s.close();
+		return listClient;
 	}
 
 }
