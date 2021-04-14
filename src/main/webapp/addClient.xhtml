@@ -6,14 +6,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<h:head></h:head>
+<h:head><link rel="stylesheet" href="style.css"></link></h:head>
 <h:body>
 
 	<p:layout fullPage="true">
 
 		<ui:include src="layoutUnitMenu.xhtml" />
 		
-		<p:layoutUnit position="center" style="width:200; border-width:0px;">
+		<p:layoutUnit id="layoutcenter" position="center" style="width:200; border-width:0px;">
 			<h:form>
 				<p:panel>
 				<p:growl></p:growl>
