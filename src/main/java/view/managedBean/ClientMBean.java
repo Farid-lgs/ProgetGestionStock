@@ -22,7 +22,53 @@ public class ClientMBean {
 	private Client selectedClient = new Client();
 	ClientDao clidao = new ClientDaoImpl();
 	private List<Client> listClient = new ArrayList<Client>();
+	private List<Client> listClientNom = new ArrayList<Client>();
+	private List<Client> listClientPrenom = new ArrayList<Client>();
+	private String valeurRecherche;
+	private String critereRecherche;
+
+    public String getCritereRecherche() {
+        return critereRecherche;
+    }
+
+    public void setCritereRecherche(String text2) {
+        this.critereRecherche = text2;
+    }
+    
+    public String renvoi() {
+    	if (critereRecherche.equalsIgnoreCase("1")) {
+    		return "showClientNom.xhtml";
+    		}
+    	else if(critereRecherche.equalsIgnoreCase("2")) {
+    		return "showClientPrenom.xhtml";
+    		}
+    	else
+    		return "showClient.xhtml";
+    }
 	
+	
+	public String getValeurRecherche() {
+		return valeurRecherche;
+	}
+
+	public void setValeurRecherche(String valeurRecherche) {
+		this.valeurRecherche = valeurRecherche;
+	}
+
+	public List<Client> getListClientNom() {
+		listClientNom = clidao.findByNom(valeurRecherche);
+		return listClientNom;
+	}
+	public void setListClientNom(List<Client> listClientNom) {
+		this.listClientNom = listClientNom;
+	}
+	public List<Client> getListClientPrenom() {
+		listClientPrenom = clidao.findByPrenom(valeurRecherche);
+		return listClientPrenom;
+	}
+	public void setListClientPrenom(List<Client> listClientPrenom) {
+		this.listClientPrenom = listClientPrenom;
+	}
 	public Client getSelectedClient() {
 		return selectedClient;
 	}
