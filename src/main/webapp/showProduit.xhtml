@@ -14,6 +14,30 @@
 		
 		<p:layoutUnit id="layoutcenter" position="center" style="width:200; border-width:0px;">
 	<h:form>
+			<center>			
+			<p:panel id="panel" header="Section Recherche" styleClass="p-mb-3">
+            		<p:growl id="messages"/>
+
+            <h:panelGrid columns="2" cellpadding="7">
+            
+                <h:outputLabel for="valeurRecherche" value="Champ de recherche :"/>
+                <p:inputText id="valeurRecherche" value="#{produitMBean.valeurRecherche}" required="true">
+                </p:inputText>
+
+                <h:outputLabel for="critereRecherche" value="Critere :"/>
+                <p:selectOneMenu id="critereRecherche" value="#{produitMBean.critereRecherche}" required="true" label="critereRecherche">
+                    <f:selectItem itemLabel="None" itemValue="0" noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Designation" itemValue="1"/>
+                    <f:selectItem itemLabel="Marque" itemValue="2"/>
+                </p:selectOneMenu>
+                <p:message for="@previous"/>
+                <h:commandButton value="Recherche" actionListener="#{produitMBean.renvoi}"/>
+                
+            </h:panelGrid>
+        </p:panel>
+            </center>
+			</h:form>
+	<h:form>
 		<p:growl showDetail="true"></p:growl>
 		<p:dataTable value="#{produitMBean.listProduit}" var="produit" selection="#{produitMBean.selectedProduit}" selectionMode="single" rowKey="#{produit.idproduit}">
 			<p:column headerText="Id">
