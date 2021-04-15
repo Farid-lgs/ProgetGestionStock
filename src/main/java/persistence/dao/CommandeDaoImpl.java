@@ -1,11 +1,16 @@
 package persistence.dao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import persistence.entities.Categorie;
 import persistence.entities.Client;
@@ -58,6 +63,28 @@ public class CommandeDaoImpl implements CommandeDao {
 		Commande cmd = s.get(Commande.class,(CommandeId) commande);
 		s.close();
 		return cmd;
+	}
+
+	@Override
+	public List<Commande> findByEtat(BigDecimal etatcommande) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Criteria crt = s.createCriteria(Commande.class);
+		Criterion crt1 = Restrictions.eq("etatcommande", etatcommande);
+		crt.add(crt1);
+		List<Commande> listCommande = crt.list();
+		s.close();
+		return listCommande;
+	}
+
+	@Override
+	public List<Commande> findByDate(Date dateDebut,Date dateFin) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		Criteria crt = s.createCriteria(Commande.class);
+		Criterion crt1 = Restrictions.between("datecommande", dateDebut, dateFin);
+		crt.add(crt1);
+		List<Commande> listCommande = crt.list();
+		s.close();
+		return listCommande;
 	}
 
 }

@@ -22,11 +22,13 @@ public class ClientMBean {
 	private Client selectedClient = new Client();
 	ClientDao clidao = new ClientDaoImpl();
 	private List<Client> listClient = new ArrayList<Client>();
-	private List<Client> listClientNom = new ArrayList<Client>();
-	private List<Client> listClientPrenom = new ArrayList<Client>();
 	private String valeurRecherche;
 	private String critereRecherche;
-
+	
+	public ClientMBean() {
+		this.listClient = clidao.findAll();
+	}
+	
     public String getCritereRecherche() {
         return critereRecherche;
     }
@@ -35,15 +37,13 @@ public class ClientMBean {
         this.critereRecherche = text2;
     }
     
-    public String renvoi() {
-    	if (critereRecherche.equalsIgnoreCase("1")) {
-    		return "showClientNom.xhtml";
-    		}
-    	else if(critereRecherche.equalsIgnoreCase("2")) {
-    		return "showClientPrenom.xhtml";
-    		}
-    	else
-    		return "showClient.xhtml";
+    public void renvoi(ActionEvent e) {
+    	if (critereRecherche.equalsIgnoreCase("0")||critereRecherche==null)
+    		this.listClient = clidao.findAll();
+    	else if (critereRecherche.equalsIgnoreCase("1")) 
+    		this.listClient = clidao.findByNom(valeurRecherche);
+    	else if (critereRecherche.equalsIgnoreCase("2")) 
+    		this.listClient = clidao.findByPrenom(valeurRecherche);
     }
 	
 	
@@ -55,20 +55,6 @@ public class ClientMBean {
 		this.valeurRecherche = valeurRecherche;
 	}
 
-	public List<Client> getListClientNom() {
-		listClientNom = clidao.findByNom(valeurRecherche);
-		return listClientNom;
-	}
-	public void setListClientNom(List<Client> listClientNom) {
-		this.listClientNom = listClientNom;
-	}
-	public List<Client> getListClientPrenom() {
-		listClientPrenom = clidao.findByPrenom(valeurRecherche);
-		return listClientPrenom;
-	}
-	public void setListClientPrenom(List<Client> listClientPrenom) {
-		this.listClientPrenom = listClientPrenom;
-	}
 	public Client getSelectedClient() {
 		return selectedClient;
 	}
@@ -77,7 +63,6 @@ public class ClientMBean {
 	}
 	
 	public List<Client> getListClient() {
-		this.listClient = clidao.findAll();
 		return listClient;
 	}
 	public void setListClient(List<Client> listClient) {

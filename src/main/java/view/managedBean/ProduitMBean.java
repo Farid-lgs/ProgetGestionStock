@@ -26,8 +26,33 @@ public class ProduitMBean {
 	private Produit selectedProduit = new Produit();
 	ProduitDao produitdao = new ProduitDaoImpl();
 	private List<Produit> listProduit = new ArrayList<Produit>();
+	private String valeurRecherche;
+	private String critereRecherche;
 	
+	public ProduitMBean() {
+		listProduit = produitdao.findAll();
+	}
 	
+	public String getValeurRecherche() {
+		return valeurRecherche;
+	}
+
+
+	public void setValeurRecherche(String valeurRecherche) {
+		this.valeurRecherche = valeurRecherche;
+	}
+
+
+	public String getCritereRecherche() {
+		return critereRecherche;
+	}
+
+
+	public void setCritereRecherche(String critereRecherche) {
+		this.critereRecherche = critereRecherche;
+	}
+
+
 	public Produit getProduit() {
 		return produit;
 	}
@@ -49,7 +74,6 @@ public class ProduitMBean {
 
 
 	public List<Produit> getListProduit() {
-		listProduit = produitdao.findAll();
 		return listProduit;
 	}
 
@@ -80,4 +104,13 @@ public class ProduitMBean {
 		produitdao.update(selectedProduit);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Modification effectué avec succés"));
 	}
+	
+	public void renvoi(ActionEvent e) {
+    	if (critereRecherche.equalsIgnoreCase("0")||critereRecherche==null)
+    		this.listProduit = produitdao.findAll();
+    	else if (critereRecherche.equalsIgnoreCase("1")) 
+    		this.listProduit = produitdao.findByDesignation(valeurRecherche);
+    	else if (critereRecherche.equalsIgnoreCase("2")) 
+    		this.listProduit = produitdao.findByMarque(valeurRecherche);
+    }
 }

@@ -13,6 +13,44 @@
 		<ui:include src="layoutUnitMenu.xhtml" />
 		
 		<p:layoutUnit id="layoutcenter" position="center" style="width:200; border-width:0px;">
+		<h:form>
+			<center>			
+			<p:panel id="panel" header="Section Recherche par Etat" styleClass="p-mb-3">
+            		<p:growl id="messages"/>
+
+            <h:panelGrid columns="2" cellpadding="7">
+            
+                <h:outputLabel for="valeurRecherche" value="Champ de recherche :"/>
+                <p:inputText id="valeurRecherche" value="#{commandeMBean.valeurRecherche}" required="true">
+                </p:inputText>
+
+                <p:message for="@previous"/>
+                <h:commandButton value="Recherche" actionListener="#{commandeMBean.findByEtat}"/>
+                
+            </h:panelGrid>
+        </p:panel>
+            </center>
+			</h:form>
+			<h:form>
+			<center>			
+			<p:panel id="panel" header="Section Recherche par Date" styleClass="p-mb-3">
+            		<p:growl id="messages"/>
+
+            <h:panelGrid columns="2" cellpadding="7">
+            
+                <h:outputLabel for="dateDebut" value="Date debut :"/>
+                <p:calendar id="dateDebut" value="#{commandeMBean.dateDebut}" required="true">
+                </p:calendar>
+				 <h:outputLabel for="dateFin" value="Date fin :"/>
+                <p:calendar id="dateFin" value="#{commandeMBean.dateFin}" required="true">
+                </p:calendar>
+                <p:message for="@previous"/>
+                <h:commandButton value="Recherche" actionListener="#{commandeMBean.findByDate()}"/>
+                
+            </h:panelGrid>
+        </p:panel>
+            </center>
+			</h:form>
 	<h:form>
 		<p:growl showDetail="true"></p:growl>
 		<p:dataTable value="#{commandeMBean.listCommande}" var="commande" selection="#{commandeMBean.selectedCommande}" selectionMode="single" rowKey="#{commande.id}">
